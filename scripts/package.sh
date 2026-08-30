@@ -48,7 +48,18 @@ while IFS= read -r path; do
 done < <(jq -r '(.assets // [])[] | .path' "$manifest")
 
 rm -f "$archive" "$archive.sha256"
-zip -X -q "$archive" "${entries[@]}"
-printf '%s\n' 'Operit Theme Package' | zip -z -q "$archive"
+stage="$(mktemp -d "${TMPDIR:-/tmp}/operit-theme-package.XXXXXX")"
+trap 'rm -rf "$stage"' EXIT
+for entry in "${entries[@]}"; do
+  staged_entry="$stage/$entry"
+  mkdir -p "$(dirname "$staged_entry")"
+  cp "$entry" "$staged_entry"
+  TZ=UTC touch -t 198001010000 "$staged_entry"
+done
+(
+  cd "$stage"
+  zip -X -q "$repo_root/$archive" "${entries[@]}"
+  printf '%s\n' 'Operit Theme Package' | zip -z -q "$repo_root/$archive"
+)
 sha256sum "$archive" > "$archive.sha256"
 printf '%s\n' "$archive"
