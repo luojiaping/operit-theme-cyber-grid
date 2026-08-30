@@ -4,7 +4,7 @@
 
 ## Install
 
-1. Download `operit-cyber-grid-<version>.otheme` from the [Releases](../../releases) page.
+1. Download `operit-cyber-grid-<version>.otheme` from the [Releases](https://github.com/luojiaping/operit-theme-cyber-grid/releases) page.
 2. Open Operit settings, choose Themes, and import the archive.
 3. Select Cyber Grid from the installed theme list.
 
