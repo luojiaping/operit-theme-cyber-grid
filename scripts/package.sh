@@ -55,8 +55,10 @@ for entry in "${entries[@]}"; do
   mkdir -p "$(dirname "$staged_entry")"
   cp "$entry" "$staged_entry"
   TZ=UTC touch -t 198001010000 "$staged_entry"
+  chmod 0644 "$staged_entry"
 done
 (
+  export TZ=UTC
   cd "$stage"
   zip -X -q "$repo_root/$archive" "${entries[@]}"
   printf '%s\n' 'Operit Theme Package' | zip -z -q "$repo_root/$archive"
