@@ -16,6 +16,7 @@ The application validates the archive, manifest, surface coverage, scene contrac
 - `app.shell` and `chat.main` are full scenes: Hubble nebula backdrop, a neon top bar, and measured host slots without fixed percentage positioning.
 - The page-level outer shell remains a nine-slice asset. Component skins declare their own `round_rect`, `cut_corners`, `hud_notched`, `corner_brackets`, or `segmented_rail` frame geometry.
 - Chat uses HUD notches for the composer, segmented rails for the role bar, open brackets for AI messages, and cut corners for user messages.
+- Surface overrides follow the same host contract as the default package: `app.shell` and `chat.main` keep their matching scene IDs, while inherited template and host-shell surfaces remain host-owned.
 
 ## Assets and Attribution
 

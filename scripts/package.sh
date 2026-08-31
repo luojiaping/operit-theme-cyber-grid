@@ -18,6 +18,36 @@ jq -e '
     (.token | type == "string" and length > 0) and
     (.widthDp | type == "number" and . >= 0.25 and . <= 16);
   def valid_optional_stroke: . == null or valid_stroke;
+  def required_surface_ids:
+    ["app.shell", "app.navigation", "chat.main", "chat.floating",
+     "chat.permission_overlay", "browser.shell", "web_chat.main",
+     "memory.graph_library", "market.home", "market.category",
+     "market.entry_detail", "market.publisher_console", "market.artifact_editor",
+     "market.repository_editor", "packages.manager", "workflow.library",
+     "workflow.canvas_editor", "files.browser", "assistant.profile",
+     "persona.card_studio", "prompt_tag.market", "settings.index", "settings.form",
+     "settings.statistics", "toolbox.index", "toolbox.tool", "terminal.shell",
+     "media.shell", "plugin.host_shell", "overlay.dialog", "overlay.sheet",
+     "overlay.menu", "overlay.snackbar", "overlay.toast", "state.loading",
+     "state.empty", "state.error"];
+  def required_component_ids:
+    ["app_bar", "navigation", "page", "section", "list_item", "button",
+     "icon_button", "input", "composer", "message_user", "message_assistant",
+     "dialog", "sheet", "menu", "snackbar", "status"];
+  def expected_surface_kind($surface):
+    if $surface == "app.shell" or $surface == "chat.main" then
+      "SCENE"
+    elif $surface == "browser.shell" or $surface == "terminal.shell" or
+         $surface == "media.shell" or $surface == "plugin.host_shell" then
+      "HOST_SHELL"
+    else
+      "TEMPLATE"
+    end;
+  def valid_surface:
+    (.surfaceId | type == "string") and
+    (.surfaceId as $surface | required_surface_ids | index($surface) != null) and
+    (.surfaceId as $surface | .kind == expected_surface_kind($surface)) and
+    (if .kind == "SCENE" then .sceneId == .surfaceId else .sceneId == null end);
   def valid_frame:
     type == "object" and
     (.type | type == "string") and
@@ -63,14 +93,25 @@ jq -e '
           | map(select(. != null))
           | all(has("frame") and (.frame | valid_frame))
         )) and
-   (.surfaces | type == "array" and length > 0) and
-  (.scenes | type == "array") and
+    (.surfaces | type == "array" and length > 0 and all(valid_surface)) and
+    (.surfaces | map(.surfaceId)) as $surface_ids |
+    ((($surface_ids - required_surface_ids) | length) == 0) and
+    (.presentation.componentSkins | keys) as $component_ids |
+    ((($component_ids - required_component_ids) | length) == 0) and
+    (if .basis == null then
+       (($surface_ids | sort) == (required_surface_ids | sort)) and
+       (($component_ids | sort) == (required_component_ids | sort))
+     else
+       true
+     end) and
+   (.scenes | type == "array") and
   (.scenes | map(.sceneId) | . == unique)
 ' "$manifest" >/dev/null
 
 # 场景型 surface 必须能找到对应场景定义。
 while IFS=$'\t' read -r surface scene; do
   test -n "$surface"
+  test "$surface" = "$scene"
   jq -e --arg scene "$scene" 'any(.scenes[]; .sceneId == $scene)' "$manifest" >/dev/null ||
     { echo "surface $surface references missing scene $scene" >&2; exit 1; }
 done < <(jq -r '(.surfaces // [])[] | select(.kind == "SCENE") | [.surfaceId, (.sceneId // "")] | @tsv' "$manifest")
