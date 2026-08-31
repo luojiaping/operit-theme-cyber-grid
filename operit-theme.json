@@ -30,7 +30,7 @@
   "basis": {
     "packageId": "operit.default",
     "version": "2.0.0",
-    "archiveSha256": "ee571d8bcb4d814624c62c84f60a55ffdc37eb7296cd561ca2017ba9b2b566ad"
+    "archiveSha256": "8d5c512555a059a871259071adfd26b3257d57e533d0ba80f03537c58e6b4102"
   },
   "assets": [
     {
@@ -69,22 +69,22 @@
         "lightArgb": 4278216826,
         "darkArgb": 4278248959
       },
-      "m3.onPrimary": {
+      "m3.on_primary": {
         "type": "color",
         "lightArgb": 4294967295,
         "darkArgb": 4278194968
       },
-      "m3.primaryContainer": {
+      "m3.primary_container": {
         "type": "color",
         "lightArgb": 4288475903,
         "darkArgb": 4278203965
       },
-      "m3.onPrimaryContainer": {
+      "m3.on_primary_container": {
         "type": "color",
         "lightArgb": 4278198312,
         "darkArgb": 4288475903
       },
-      "m3.inversePrimary": {
+      "m3.inverse_primary": {
         "type": "color",
         "lightArgb": 4278248959,
         "darkArgb": 4278237396
@@ -94,17 +94,17 @@
         "lightArgb": 4288430182,
         "darkArgb": 4294921630
       },
-      "m3.onSecondary": {
+      "m3.on_secondary": {
         "type": "color",
         "lightArgb": 4294967295,
         "darkArgb": 4283039780
       },
-      "m3.secondaryContainer": {
+      "m3.secondary_container": {
         "type": "color",
         "lightArgb": 4294957544,
         "darkArgb": 4284940353
       },
-      "m3.onSecondaryContainer": {
+      "m3.on_secondary_container": {
         "type": "color",
         "lightArgb": 4282253344,
         "darkArgb": 4294957544
@@ -114,17 +114,17 @@
         "lightArgb": 4278217547,
         "darkArgb": 4285461445
       },
-      "m3.onTertiary": {
+      "m3.on_tertiary": {
         "type": "color",
         "lightArgb": 4294967295,
         "darkArgb": 4278204456
       },
-      "m3.tertiaryContainer": {
+      "m3.tertiary_container": {
         "type": "color",
         "lightArgb": 4287887576,
         "darkArgb": 4278210873
       },
-      "m3.onTertiaryContainer": {
+      "m3.on_tertiary_container": {
         "type": "color",
         "lightArgb": 4278198296,
         "darkArgb": 4287887576
@@ -134,7 +134,7 @@
         "lightArgb": 4294244349,
         "darkArgb": 4278651668
       },
-      "m3.onBackground": {
+      "m3.on_background": {
         "type": "color",
         "lightArgb": 4279704614,
         "darkArgb": 4292995317
@@ -144,32 +144,32 @@
         "lightArgb": 4294244349,
         "darkArgb": 4278849565
       },
-      "m3.onSurface": {
+      "m3.on_surface": {
         "type": "color",
         "lightArgb": 4279704614,
         "darkArgb": 4292995317
       },
-      "m3.surfaceVariant": {
+      "m3.surface_variant": {
         "type": "color",
         "lightArgb": 4292797424,
         "darkArgb": 4279705658
       },
-      "m3.onSurfaceVariant": {
+      "m3.on_surface_variant": {
         "type": "color",
         "lightArgb": 4282599257,
         "darkArgb": 4290364636
       },
-      "m3.surfaceTint": {
+      "m3.surface_tint": {
         "type": "color",
         "lightArgb": 4278216826,
         "darkArgb": 4278248959
       },
-      "m3.inverseSurface": {
+      "m3.inverse_surface": {
         "type": "color",
         "lightArgb": 4281086272,
         "darkArgb": 4292995317
       },
-      "m3.inverseOnSurface": {
+      "m3.inverse_on_surface": {
         "type": "color",
         "lightArgb": 4293783807,
         "darkArgb": 4279705658
@@ -179,17 +179,17 @@
         "lightArgb": 4290386458,
         "darkArgb": 4294948011
       },
-      "m3.onError": {
+      "m3.on_error": {
         "type": "color",
         "lightArgb": 4294967295,
         "darkArgb": 4285071365
       },
-      "m3.errorContainer": {
+      "m3.error_container": {
         "type": "color",
         "lightArgb": 4294957782,
         "darkArgb": 4287823882
       },
-      "m3.onErrorContainer": {
+      "m3.on_error_container": {
         "type": "color",
         "lightArgb": 4282449922,
         "darkArgb": 4294957782
@@ -199,7 +199,7 @@
         "lightArgb": 4285691523,
         "darkArgb": 4287272108
       },
-      "m3.outlineVariant": {
+      "m3.outline_variant": {
         "type": "color",
         "lightArgb": 4290954964,
         "darkArgb": 4282403686
@@ -209,37 +209,37 @@
         "lightArgb": 4278190080,
         "darkArgb": 4278190080
       },
-      "m3.surfaceBright": {
+      "m3.surface_bright": {
         "type": "color",
         "lightArgb": 4294244349,
         "darkArgb": 4281087056
       },
-      "m3.surfaceDim": {
+      "m3.surface_dim": {
         "type": "color",
         "lightArgb": 4292205286,
         "darkArgb": 4278651668
       },
-      "m3.surfaceContainerLowest": {
+      "m3.surface_container_lowest": {
         "type": "color",
         "lightArgb": 4294967295,
         "darkArgb": 4278454288
       },
-      "m3.surfaceContainerLow": {
+      "m3.surface_container_low": {
         "type": "color",
         "lightArgb": 4293849593,
         "darkArgb": 4278849565
       },
-      "m3.surfaceContainer": {
+      "m3.surface_container": {
         "type": "color",
         "lightArgb": 4293455092,
         "darkArgb": 4279244584
       },
-      "m3.surfaceContainerHigh": {
+      "m3.surface_container_high": {
         "type": "color",
         "lightArgb": 4293060591,
         "darkArgb": 4279639603
       },
-      "m3.surfaceContainerHighest": {
+      "m3.surface_container_highest": {
         "type": "color",
         "lightArgb": 4292665833,
         "darkArgb": 4280034880
@@ -478,41 +478,41 @@
     "material": {
       "colors": {
         "primary": "m3.primary",
-        "onPrimary": "m3.onPrimary",
-        "primaryContainer": "m3.primaryContainer",
-        "onPrimaryContainer": "m3.onPrimaryContainer",
-        "inversePrimary": "m3.inversePrimary",
+        "onPrimary": "m3.on_primary",
+        "primaryContainer": "m3.primary_container",
+        "onPrimaryContainer": "m3.on_primary_container",
+        "inversePrimary": "m3.inverse_primary",
         "secondary": "m3.secondary",
-        "onSecondary": "m3.onSecondary",
-        "secondaryContainer": "m3.secondaryContainer",
-        "onSecondaryContainer": "m3.onSecondaryContainer",
+        "onSecondary": "m3.on_secondary",
+        "secondaryContainer": "m3.secondary_container",
+        "onSecondaryContainer": "m3.on_secondary_container",
         "tertiary": "m3.tertiary",
-        "onTertiary": "m3.onTertiary",
-        "tertiaryContainer": "m3.tertiaryContainer",
-        "onTertiaryContainer": "m3.onTertiaryContainer",
+        "onTertiary": "m3.on_tertiary",
+        "tertiaryContainer": "m3.tertiary_container",
+        "onTertiaryContainer": "m3.on_tertiary_container",
         "background": "m3.background",
-        "onBackground": "m3.onBackground",
+        "onBackground": "m3.on_background",
         "surface": "m3.surface",
-        "onSurface": "m3.onSurface",
-        "surfaceVariant": "m3.surfaceVariant",
-        "onSurfaceVariant": "m3.onSurfaceVariant",
-        "surfaceTint": "m3.surfaceTint",
-        "inverseSurface": "m3.inverseSurface",
-        "inverseOnSurface": "m3.inverseOnSurface",
+        "onSurface": "m3.on_surface",
+        "surfaceVariant": "m3.surface_variant",
+        "onSurfaceVariant": "m3.on_surface_variant",
+        "surfaceTint": "m3.surface_tint",
+        "inverseSurface": "m3.inverse_surface",
+        "inverseOnSurface": "m3.inverse_on_surface",
         "error": "m3.error",
-        "onError": "m3.onError",
-        "errorContainer": "m3.errorContainer",
-        "onErrorContainer": "m3.onErrorContainer",
+        "onError": "m3.on_error",
+        "errorContainer": "m3.error_container",
+        "onErrorContainer": "m3.on_error_container",
         "outline": "m3.outline",
-        "outlineVariant": "m3.outlineVariant",
+        "outlineVariant": "m3.outline_variant",
         "scrim": "m3.scrim",
-        "surfaceBright": "m3.surfaceBright",
-        "surfaceDim": "m3.surfaceDim",
-        "surfaceContainerLowest": "m3.surfaceContainerLowest",
-        "surfaceContainerLow": "m3.surfaceContainerLow",
-        "surfaceContainer": "m3.surfaceContainer",
-        "surfaceContainerHigh": "m3.surfaceContainerHigh",
-        "surfaceContainerHighest": "m3.surfaceContainerHighest"
+        "surfaceBright": "m3.surface_bright",
+        "surfaceDim": "m3.surface_dim",
+        "surfaceContainerLowest": "m3.surface_container_lowest",
+        "surfaceContainerLow": "m3.surface_container_low",
+        "surfaceContainer": "m3.surface_container",
+        "surfaceContainerHigh": "m3.surface_container_high",
+        "surfaceContainerHighest": "m3.surface_container_highest"
       },
       "typography": {
         "family": "DEFAULT",
@@ -534,7 +534,7 @@
       "app_bar": {
         "normal": {
           "containerToken": "cyber.bar",
-          "contentToken": "m3.onSurface",
+          "contentToken": "m3.on_surface",
           "outlineToken": "cyber.bar_outline",
           "outlineWidthDp": 1.0
         }
@@ -542,53 +542,53 @@
       "navigation": {
         "normal": {
           "containerToken": "m3.surface",
-          "contentToken": "m3.onSurface"
+          "contentToken": "m3.on_surface"
         },
         "selected": {
-          "containerToken": "m3.primaryContainer",
-          "contentToken": "m3.onPrimaryContainer"
+          "containerToken": "m3.primary_container",
+          "contentToken": "m3.on_primary_container"
         }
       },
       "page": {
         "normal": {
           "containerToken": "cyber.bg",
-          "contentToken": "m3.onBackground"
+          "contentToken": "m3.on_background"
         }
       },
       "section": {
         "normal": {
-          "containerToken": "m3.surfaceContainerLow",
-          "contentToken": "m3.onSurface"
+          "containerToken": "m3.surface_container_low",
+          "contentToken": "m3.on_surface"
         }
       },
       "list_item": {
         "normal": {
-          "containerToken": "m3.surfaceContainerLow",
-          "contentToken": "m3.onSurface"
+          "containerToken": "m3.surface_container_low",
+          "contentToken": "m3.on_surface"
         },
         "selected": {
-          "containerToken": "m3.primaryContainer",
-          "contentToken": "m3.onPrimaryContainer"
+          "containerToken": "m3.primary_container",
+          "contentToken": "m3.on_primary_container"
         },
         "disabled": {
-          "containerToken": "m3.surfaceVariant",
-          "contentToken": "m3.onSurfaceVariant"
+          "containerToken": "m3.surface_variant",
+          "contentToken": "m3.on_surface_variant"
         }
       },
       "button": {
         "normal": {
           "containerToken": "m3.primary",
-          "contentToken": "m3.onPrimary"
+          "contentToken": "m3.on_primary"
         },
         "disabled": {
-          "containerToken": "m3.surfaceVariant",
-          "contentToken": "m3.onSurfaceVariant"
+          "containerToken": "m3.surface_variant",
+          "contentToken": "m3.on_surface_variant"
         }
       },
       "icon_button": {
         "normal": {
           "containerToken": "m3.transparent",
-          "contentToken": "m3.onSurface"
+          "contentToken": "m3.on_surface"
         },
         "selected": {
           "containerToken": "m3.transparent",
@@ -602,17 +602,17 @@
       "input": {
         "normal": {
           "containerToken": "cyber.input_bg",
-          "contentToken": "m3.onSurface"
+          "contentToken": "m3.on_surface"
         },
         "focused": {
           "containerToken": "cyber.input_bg",
-          "contentToken": "m3.onSurface",
+          "contentToken": "m3.on_surface",
           "outlineToken": "cyber.cyan",
           "outlineWidthDp": 1.5
         },
         "error": {
           "containerToken": "cyber.input_bg",
-          "contentToken": "m3.onSurface",
+          "contentToken": "m3.on_surface",
           "outlineToken": "m3.error",
           "outlineWidthDp": 1.5
         }
@@ -620,7 +620,7 @@
       "composer": {
         "normal": {
           "containerToken": "cyber.input_bg",
-          "contentToken": "m3.onSurface",
+          "contentToken": "m3.on_surface",
           "outlineToken": "cyber.cyan",
           "outlineWidthDp": 1.0,
           "cornerRadiusDp": 14.0
@@ -628,15 +628,15 @@
       },
       "message_user": {
         "normal": {
-          "containerToken": "m3.primaryContainer",
-          "contentToken": "m3.onPrimaryContainer",
+          "containerToken": "m3.primary_container",
+          "contentToken": "m3.on_primary_container",
           "cornerRadiusDp": 14.0
         }
       },
       "message_assistant": {
         "normal": {
-          "containerToken": "m3.surfaceContainer",
-          "contentToken": "m3.onSurface",
+          "containerToken": "m3.surface_container",
+          "contentToken": "m3.on_surface",
           "outlineToken": "cyber.magenta",
           "outlineWidthDp": 1.0,
           "cornerRadiusDp": 12.0
@@ -644,35 +644,35 @@
       },
       "dialog": {
         "normal": {
-          "containerToken": "m3.surfaceContainerHigh",
-          "contentToken": "m3.onSurface",
+          "containerToken": "m3.surface_container_high",
+          "contentToken": "m3.on_surface",
           "cornerRadiusDp": 14.0
         }
       },
       "sheet": {
         "normal": {
-          "containerToken": "m3.surfaceContainerLow",
-          "contentToken": "m3.onSurface"
+          "containerToken": "m3.surface_container_low",
+          "contentToken": "m3.on_surface"
         }
       },
       "menu": {
         "normal": {
-          "containerToken": "m3.surfaceContainerHigh",
-          "contentToken": "m3.onSurface",
-          "outlineToken": "m3.outlineVariant",
+          "containerToken": "m3.surface_container_high",
+          "contentToken": "m3.on_surface",
+          "outlineToken": "m3.outline_variant",
           "outlineWidthDp": 1.0
         }
       },
       "snackbar": {
         "normal": {
-          "containerToken": "m3.inverseSurface",
-          "contentToken": "m3.inverseOnSurface"
+          "containerToken": "m3.inverse_surface",
+          "contentToken": "m3.inverse_on_surface"
         }
       },
       "status": {
         "normal": {
-          "containerToken": "m3.surfaceContainer",
-          "contentToken": "m3.onSurfaceVariant"
+          "containerToken": "m3.surface_container",
+          "contentToken": "m3.on_surface_variant"
         }
       }
     }
