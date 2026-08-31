@@ -13,12 +13,13 @@ The application validates the archive, manifest, surface coverage, scene contrac
 ## Package
 
 - Schema: V2 with an explicit basis on `operit.default` at the exact release coordinate; everything not overridden here is inherited from the base theme.
-- `app.shell` and `chat.main` are full scenes: Hubble nebula backdrop, neon top bar, and nine-slice frames around the real measured header and composer regions (no fixed percentage positioning).
-- All component skins are restyled with the cyber palette.
+- `app.shell` and `chat.main` are full scenes: Hubble nebula backdrop, a neon top bar, and measured host slots without fixed percentage positioning.
+- The page-level outer shell remains a nine-slice asset. Component skins declare their own `round_rect`, `cut_corners`, `hud_notched`, `corner_brackets`, or `segmented_rail` frame geometry.
+- Chat uses HUD notches for the composer, segmented rails for the role bar, open brackets for AI messages, and cut corners for user messages.
 
 ## Assets and Attribution
 
-The background is derived from the Hubble Ring Nebula image. The full credit and source URL are in [ATTRIBUTION.md](ATTRIBUTION.md) and the package manifest. The three frame PNGs are project-generated assets.
+The background is derived from the Hubble Ring Nebula image. The full credit and source URL are in [ATTRIBUTION.md](ATTRIBUTION.md) and the package manifest. The outer shell PNG is a project-generated asset.
 
 ## Release
 

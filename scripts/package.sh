@@ -13,12 +13,57 @@ test -f "$manifest"
 
 # V2 契约：完整 Material 投影 + 组件皮肤 + 日常 surface 覆盖是包的强制部分。
 jq -e '
-  .schemaVersion == 2 and
+  def valid_stroke:
+    type == "object" and
+    (.token | type == "string" and length > 0) and
+    (.widthDp | type == "number" and . >= 0.25 and . <= 16);
+  def valid_optional_stroke: . == null or valid_stroke;
+  def valid_frame:
+    type == "object" and
+    (.type | type == "string") and
+    (if .type == "none" then
+       true
+     elif .type == "round_rect" then
+       (.cornerRadiusDp | type == "number" and . >= 0 and . <= 96) and
+       (.border | valid_optional_stroke)
+     elif .type == "cut_corners" then
+       (.cutSizeDp | type == "number" and . >= 0.5 and . <= 48) and
+       (.border | valid_stroke) and
+       (.accent | valid_optional_stroke)
+     elif .type == "hud_notched" then
+       (.cutSizeDp | type == "number" and . >= 0.5 and . <= 48) and
+       (.notchWidthFraction | type == "number" and . >= 0.1 and . <= 0.7) and
+       (.notchDepthDp | type == "number" and . >= 0.5 and . <= 48) and
+       (.border | valid_stroke) and
+       (.accent | valid_optional_stroke)
+     elif .type == "corner_brackets" then
+       (.cornerCutDp | type == "number" and . >= 0 and . <= 48) and
+       (.bracketLengthDp | type == "number" and . >= 4 and . <= 96) and
+       (.border | valid_stroke) and
+       (.accent | valid_optional_stroke)
+     elif .type == "segmented_rail" then
+       (.cornerCutDp | type == "number" and . >= 0 and . <= 48) and
+       (.railInsetDp | type == "number" and . >= 0 and . <= 48) and
+       (.segmentLengthDp | type == "number" and . >= 4 and . <= 160) and
+       (.border | valid_stroke) and
+       (.accent | valid_stroke)
+     else
+       false
+     end);
+   .schemaVersion == 2 and
   (.packageId | test("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$")) and
   (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+([-.+][0-9A-Za-z.-]+)?$")) and
-  (.presentation.material.colors | type == "object") and
-  (.presentation.componentSkins | type == "object" and length > 0) and
-  (.surfaces | type == "array" and length > 0) and
+   (.presentation.material.colors | type == "object") and
+   (.presentation.componentSkins | type == "object" and length > 0) and
+   (.presentation.componentSkins
+      | to_entries
+      | all(
+          .value
+          | [.normal, .disabled, .selected, .focused, .error]
+          | map(select(. != null))
+          | all(has("frame") and (.frame | valid_frame))
+        )) and
+   (.surfaces | type == "array" and length > 0) and
   (.scenes | type == "array") and
   (.scenes | map(.sceneId) | . == unique)
 ' "$manifest" >/dev/null
