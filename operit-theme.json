@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "packageId": "operit.cyber_grid",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "displayName": {
     "values": {
       "*": "赛博网格",
@@ -15,8 +15,8 @@
   },
   "description": {
     "values": {
-      "*": "Hubble 星云背景、青蓝霓虹框和洋红信号线组成的聊天壳层。",
-      "en": "A chat shell with a Hubble nebula backdrop, cyan neon frames, and magenta signal lines."
+      "*": "Hubble 星云背景、青蓝霓虹框与洋红信号线构成的赛博壳层，覆盖应用全部日常界面。",
+      "en": "A cyber shell with a Hubble nebula backdrop, cyan neon frames, and magenta signal lines across all daily surfaces."
     }
   },
   "attribution": {
@@ -27,37 +27,11 @@
     },
     "sourceUrl": "https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/"
   },
-  "capabilities": {
-    "hostSurfaces": ["main"],
-    "scenes": ["chat.main"]
+  "basis": {
+    "packageId": "operit.default",
+    "version": "2.0.0",
+    "archiveSha256": "ee571d8bcb4d814624c62c84f60a55ffdc37eb7296cd561ca2017ba9b2b566ad"
   },
-  "variants": [
-    {
-      "id": "neon",
-      "label": {
-        "values": {
-          "*": "霓虹",
-          "en": "Neon"
-        }
-      }
-    }
-  ],
-  "parameters": [
-    {
-      "id": "primary_color",
-      "type": "COLOR",
-      "defaultValue": {
-        "type": "color",
-        "argb": 4278246655
-      },
-      "label": {
-        "values": {
-          "*": "主色",
-          "en": "Primary color"
-        }
-      }
-    }
-  ],
   "assets": [
     {
       "key": "cyber_nebula",
@@ -90,24 +64,298 @@
   ],
   "tokens": {
     "tokens": {
-      "color.background": {
+      "m3.primary": {
         "type": "color",
-        "lightArgb": 4278589738,
-        "darkArgb": 4278323223
+        "lightArgb": 4278216826,
+        "darkArgb": 4278248959
       },
-      "color.cyan": {
+      "m3.onPrimary": {
         "type": "color",
-        "lightArgb": 4278246655,
-        "darkArgb": 4285131007
+        "lightArgb": 4294967295,
+        "darkArgb": 4278194968
       },
-      "color.magenta": {
+      "m3.primaryContainer": {
         "type": "color",
-        "lightArgb": 4294916069,
-        "darkArgb": 4294934000
+        "lightArgb": 4288475903,
+        "darkArgb": 4278203965
+      },
+      "m3.onPrimaryContainer": {
+        "type": "color",
+        "lightArgb": 4278198312,
+        "darkArgb": 4288475903
+      },
+      "m3.inversePrimary": {
+        "type": "color",
+        "lightArgb": 4278248959,
+        "darkArgb": 4278237396
+      },
+      "m3.secondary": {
+        "type": "color",
+        "lightArgb": 4288430182,
+        "darkArgb": 4294921630
+      },
+      "m3.onSecondary": {
+        "type": "color",
+        "lightArgb": 4294967295,
+        "darkArgb": 4283039780
+      },
+      "m3.secondaryContainer": {
+        "type": "color",
+        "lightArgb": 4294957544,
+        "darkArgb": 4284940353
+      },
+      "m3.onSecondaryContainer": {
+        "type": "color",
+        "lightArgb": 4282253344,
+        "darkArgb": 4294957544
+      },
+      "m3.tertiary": {
+        "type": "color",
+        "lightArgb": 4278217547,
+        "darkArgb": 4285461445
+      },
+      "m3.onTertiary": {
+        "type": "color",
+        "lightArgb": 4294967295,
+        "darkArgb": 4278204456
+      },
+      "m3.tertiaryContainer": {
+        "type": "color",
+        "lightArgb": 4287887576,
+        "darkArgb": 4278210873
+      },
+      "m3.onTertiaryContainer": {
+        "type": "color",
+        "lightArgb": 4278198296,
+        "darkArgb": 4287887576
+      },
+      "m3.background": {
+        "type": "color",
+        "lightArgb": 4294244349,
+        "darkArgb": 4278651668
+      },
+      "m3.onBackground": {
+        "type": "color",
+        "lightArgb": 4279704614,
+        "darkArgb": 4292995317
+      },
+      "m3.surface": {
+        "type": "color",
+        "lightArgb": 4294244349,
+        "darkArgb": 4278849565
+      },
+      "m3.onSurface": {
+        "type": "color",
+        "lightArgb": 4279704614,
+        "darkArgb": 4292995317
+      },
+      "m3.surfaceVariant": {
+        "type": "color",
+        "lightArgb": 4292797424,
+        "darkArgb": 4279705658
+      },
+      "m3.onSurfaceVariant": {
+        "type": "color",
+        "lightArgb": 4282599257,
+        "darkArgb": 4290364636
+      },
+      "m3.surfaceTint": {
+        "type": "color",
+        "lightArgb": 4278216826,
+        "darkArgb": 4278248959
+      },
+      "m3.inverseSurface": {
+        "type": "color",
+        "lightArgb": 4281086272,
+        "darkArgb": 4292995317
+      },
+      "m3.inverseOnSurface": {
+        "type": "color",
+        "lightArgb": 4293783807,
+        "darkArgb": 4279705658
+      },
+      "m3.error": {
+        "type": "color",
+        "lightArgb": 4290386458,
+        "darkArgb": 4294948011
+      },
+      "m3.onError": {
+        "type": "color",
+        "lightArgb": 4294967295,
+        "darkArgb": 4285071365
+      },
+      "m3.errorContainer": {
+        "type": "color",
+        "lightArgb": 4294957782,
+        "darkArgb": 4287823882
+      },
+      "m3.onErrorContainer": {
+        "type": "color",
+        "lightArgb": 4282449922,
+        "darkArgb": 4294957782
+      },
+      "m3.outline": {
+        "type": "color",
+        "lightArgb": 4285691523,
+        "darkArgb": 4287272108
+      },
+      "m3.outlineVariant": {
+        "type": "color",
+        "lightArgb": 4290954964,
+        "darkArgb": 4282403686
+      },
+      "m3.scrim": {
+        "type": "color",
+        "lightArgb": 4278190080,
+        "darkArgb": 4278190080
+      },
+      "m3.surfaceBright": {
+        "type": "color",
+        "lightArgb": 4294244349,
+        "darkArgb": 4281087056
+      },
+      "m3.surfaceDim": {
+        "type": "color",
+        "lightArgb": 4292205286,
+        "darkArgb": 4278651668
+      },
+      "m3.surfaceContainerLowest": {
+        "type": "color",
+        "lightArgb": 4294967295,
+        "darkArgb": 4278454288
+      },
+      "m3.surfaceContainerLow": {
+        "type": "color",
+        "lightArgb": 4293849593,
+        "darkArgb": 4278849565
+      },
+      "m3.surfaceContainer": {
+        "type": "color",
+        "lightArgb": 4293455092,
+        "darkArgb": 4279244584
+      },
+      "m3.surfaceContainerHigh": {
+        "type": "color",
+        "lightArgb": 4293060591,
+        "darkArgb": 4279639603
+      },
+      "m3.surfaceContainerHighest": {
+        "type": "color",
+        "lightArgb": 4292665833,
+        "darkArgb": 4280034880
+      },
+      "m3.transparent": {
+        "type": "color",
+        "lightArgb": 0,
+        "darkArgb": 0
+      },
+      "cyber.bg": {
+        "type": "color",
+        "lightArgb": 4279244071,
+        "darkArgb": 4278651668
+      },
+      "cyber.bar": {
+        "type": "color",
+        "lightArgb": 3423542067,
+        "darkArgb": 3423213094
+      },
+      "cyber.bar_outline": {
+        "type": "color",
+        "lightArgb": 4278237396,
+        "darkArgb": 4278248959
+      },
+      "cyber.cyan": {
+        "type": "color",
+        "lightArgb": 4278237396,
+        "darkArgb": 4278248959
+      },
+      "cyber.magenta": {
+        "type": "color",
+        "lightArgb": 4288430182,
+        "darkArgb": 4294921630
+      },
+      "cyber.input_bg": {
+        "type": "color",
+        "lightArgb": 3873302261,
+        "darkArgb": 3859684145
       }
     }
   },
   "scenes": [
+    {
+      "sceneId": "app.shell",
+      "version": {
+        "major": 1,
+        "minor": 0
+      },
+      "rootNode": {
+        "nodeId": "root",
+        "backgroundColorToken": "cyber.bg",
+        "children": [
+          {
+            "type": "image",
+            "nodeId": "nebula_image",
+            "assetId": "cyber_nebula",
+            "fit": "CROP"
+          },
+          {
+            "type": "nine_slice",
+            "nodeId": "outer_frame_asset",
+            "assetId": "outer_frame",
+            "sourceCapInsetsPx": {
+              "startPx": 42,
+              "topPx": 42,
+              "endPx": 42,
+              "bottomPx": 42
+            },
+            "destinationCapInsetsDp": {
+              "startDp": 10.0,
+              "topDp": 10.0,
+              "endDp": 10.0,
+              "bottomDp": 10.0
+            }
+          },
+          {
+            "type": "scaffold",
+            "nodeId": "shell_scaffold",
+            "top": {
+              "type": "surface",
+              "nodeId": "app_bar_surface",
+              "fillToken": "cyber.bar",
+              "outlineToken": "cyber.bar_outline",
+              "outlineWidthDp": 1.0,
+              "child": {
+                "type": "row",
+                "nodeId": "app_bar_row",
+                "children": [
+                  {
+                    "type": "host_slot",
+                    "nodeId": "nav_slot",
+                    "slotId": "app_bar.navigation"
+                  },
+                  {
+                    "type": "host_slot",
+                    "nodeId": "title_slot",
+                    "slotId": "app_bar.title",
+                    "rowWeight": 1.0
+                  },
+                  {
+                    "type": "host_slot",
+                    "nodeId": "actions_slot",
+                    "slotId": "app_bar.actions"
+                  }
+                ]
+              }
+            },
+            "content": {
+              "type": "host_slot",
+              "nodeId": "route_slot",
+              "slotId": "route.content"
+            }
+          }
+        ]
+      }
+    },
     {
       "sceneId": "chat.main",
       "version": {
@@ -116,124 +364,317 @@
       },
       "rootNode": {
         "nodeId": "root",
-        "backgroundColorToken": "color.background",
+        "backgroundColorToken": "cyber.bg",
         "children": [
           {
-            "type": "layer",
-            "nodeId": "nebula_layer",
-            "children": [
-              {
-                "type": "image",
-                "nodeId": "nebula_image",
-                "assetId": "cyber_nebula",
-                "fit": "CROP"
-              }
-            ]
+            "type": "image",
+            "nodeId": "nebula_image",
+            "assetId": "cyber_nebula",
+            "fit": "CROP"
           },
           {
-            "type": "layer",
-            "nodeId": "outer_frame_layer",
-            "children": [
-              {
-                "type": "frame",
-                "nodeId": "outer_frame_region",
-                "anchor": {"startX": 0.0, "startY": 0.0, "endX": 1.0, "endY": 1.0},
-                "width": {"type": "fill"},
-                "height": {"type": "fill"},
-                "child": {
-                  "type": "nine_slice",
-                  "nodeId": "outer_frame_asset",
-                  "assetId": "outer_frame",
-                  "sourceCapInsetsPx": {"startPx": 42, "topPx": 42, "endPx": 42, "bottomPx": 42},
-                  "destinationCapInsetsDp": {"startDp": 16.0, "topDp": 16.0, "endDp": 16.0, "bottomDp": 16.0}
+            "type": "scaffold",
+            "nodeId": "chat_scaffold",
+            "top": {
+              "type": "nine_slice",
+              "nodeId": "header_frame_asset",
+              "assetId": "header_frame",
+              "sourceCapInsetsPx": {
+                "startPx": 28,
+                "topPx": 28,
+                "endPx": 28,
+                "bottomPx": 28
+              },
+              "destinationCapInsetsDp": {
+                "startDp": 10.0,
+                "topDp": 10.0,
+                "endDp": 10.0,
+                "bottomDp": 10.0
+              },
+              "child": {
+                "type": "host_slot",
+                "nodeId": "header_slot",
+                "slotId": "header",
+                "contentPadding": {
+                  "startDp": 14.0,
+                  "topDp": 10.0,
+                  "endDp": 14.0,
+                  "bottomDp": 10.0
                 }
               }
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "header_frame_layer",
-            "children": [
-              {
-                "type": "frame",
-                "nodeId": "header_frame_region",
-                "anchor": {"startX": 0.0, "startY": 0.0, "endX": 1.0, "endY": 0.16},
-                "width": {"type": "fill"},
-                "height": {"type": "fill"},
-                "child": {
-                  "type": "nine_slice",
-                  "nodeId": "header_frame_asset",
-                  "assetId": "header_frame",
-                  "sourceCapInsetsPx": {"startPx": 28, "topPx": 28, "endPx": 28, "bottomPx": 28},
-                  "destinationCapInsetsDp": {"startDp": 12.0, "topDp": 12.0, "endDp": 12.0, "bottomDp": 12.0}
+            },
+            "content": {
+              "type": "host_slot",
+              "nodeId": "transcript_slot",
+              "slotId": "transcript"
+            },
+            "bottom": {
+              "type": "nine_slice",
+              "nodeId": "composer_frame_asset",
+              "assetId": "composer_frame",
+              "sourceCapInsetsPx": {
+                "startPx": 34,
+                "topPx": 34,
+                "endPx": 34,
+                "bottomPx": 34
+              },
+              "destinationCapInsetsDp": {
+                "startDp": 14.0,
+                "topDp": 14.0,
+                "endDp": 14.0,
+                "bottomDp": 14.0
+              },
+              "child": {
+                "type": "host_slot",
+                "nodeId": "composer_slot",
+                "slotId": "composer",
+                "contentPadding": {
+                  "startDp": 18.0,
+                  "topDp": 14.0,
+                  "endDp": 18.0,
+                  "bottomDp": 14.0
                 }
               }
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "transcript_layer",
-            "children": [
-              {"type": "host_slot", "nodeId": "transcript_slot", "slotId": "transcript"}
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "header_slot_layer",
-            "children": [
-              {"type": "host_slot", "nodeId": "header_slot", "slotId": "header"}
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "composer_frame_layer",
-            "children": [
-              {
-                "type": "frame",
-                "nodeId": "composer_frame_region",
-                "anchor": {"startX": 0.02, "startY": 0.79, "endX": 0.98, "endY": 0.985},
-                "width": {"type": "fill"},
-                "height": {"type": "fill"},
-                "child": {
-                  "type": "nine_slice",
-                  "nodeId": "composer_frame_asset",
-                  "assetId": "composer_frame",
-                  "sourceCapInsetsPx": {"startPx": 34, "topPx": 34, "endPx": 34, "bottomPx": 34},
-                  "destinationCapInsetsDp": {"startDp": 16.0, "topDp": 16.0, "endDp": 16.0, "bottomDp": 16.0}
+            },
+            "overlay": {
+              "type": "layer",
+              "nodeId": "chat_overlay",
+              "children": [
+                {
+                  "type": "host_slot",
+                  "nodeId": "gate_slot",
+                  "slotId": "configuration_gate"
+                },
+                {
+                  "type": "host_slot",
+                  "nodeId": "rail_slot",
+                  "slotId": "classic_settings_rail"
+                },
+                {
+                  "type": "host_slot",
+                  "nodeId": "overlay_slot",
+                  "slotId": "overlay_stack"
                 }
-              }
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "rail_layer",
-            "children": [
-              {"type": "host_slot", "nodeId": "rail_slot", "slotId": "classic_settings_rail"}
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "composer_layer",
-            "children": [
-              {"type": "host_slot", "nodeId": "composer_slot", "slotId": "composer"}
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "overlay_layer",
-            "children": [
-              {"type": "host_slot", "nodeId": "overlay_slot", "slotId": "overlay_stack"}
-            ]
-          },
-          {
-            "type": "layer",
-            "nodeId": "configuration_layer",
-            "children": [
-              {"type": "host_slot", "nodeId": "configuration_slot", "slotId": "configuration_gate"}
-            ]
+              ]
+            }
           }
         ]
       }
     }
-  ]
+  ],
+  "surfaces": [
+    {
+      "surfaceId": "app.shell",
+      "kind": "SCENE",
+      "sceneId": "app.shell"
+    },
+    {
+      "surfaceId": "chat.main",
+      "kind": "SCENE",
+      "sceneId": "chat.main"
+    }
+  ],
+  "presentation": {
+    "material": {
+      "colors": {
+        "primary": "m3.primary",
+        "onPrimary": "m3.onPrimary",
+        "primaryContainer": "m3.primaryContainer",
+        "onPrimaryContainer": "m3.onPrimaryContainer",
+        "inversePrimary": "m3.inversePrimary",
+        "secondary": "m3.secondary",
+        "onSecondary": "m3.onSecondary",
+        "secondaryContainer": "m3.secondaryContainer",
+        "onSecondaryContainer": "m3.onSecondaryContainer",
+        "tertiary": "m3.tertiary",
+        "onTertiary": "m3.onTertiary",
+        "tertiaryContainer": "m3.tertiaryContainer",
+        "onTertiaryContainer": "m3.onTertiaryContainer",
+        "background": "m3.background",
+        "onBackground": "m3.onBackground",
+        "surface": "m3.surface",
+        "onSurface": "m3.onSurface",
+        "surfaceVariant": "m3.surfaceVariant",
+        "onSurfaceVariant": "m3.onSurfaceVariant",
+        "surfaceTint": "m3.surfaceTint",
+        "inverseSurface": "m3.inverseSurface",
+        "inverseOnSurface": "m3.inverseOnSurface",
+        "error": "m3.error",
+        "onError": "m3.onError",
+        "errorContainer": "m3.errorContainer",
+        "onErrorContainer": "m3.onErrorContainer",
+        "outline": "m3.outline",
+        "outlineVariant": "m3.outlineVariant",
+        "scrim": "m3.scrim",
+        "surfaceBright": "m3.surfaceBright",
+        "surfaceDim": "m3.surfaceDim",
+        "surfaceContainerLowest": "m3.surfaceContainerLowest",
+        "surfaceContainerLow": "m3.surfaceContainerLow",
+        "surfaceContainer": "m3.surfaceContainer",
+        "surfaceContainerHigh": "m3.surfaceContainerHigh",
+        "surfaceContainerHighest": "m3.surfaceContainerHighest"
+      },
+      "typography": {
+        "family": "DEFAULT",
+        "displayScale": 1.0,
+        "titleScale": 1.0,
+        "bodyScale": 1.0,
+        "labelScale": 1.0,
+        "letterSpacingEm": 0.0
+      },
+      "shapes": {
+        "extraSmallDp": 4.0,
+        "smallDp": 8.0,
+        "mediumDp": 12.0,
+        "largeDp": 16.0,
+        "extraLargeDp": 24.0
+      }
+    },
+    "componentSkins": {
+      "app_bar": {
+        "normal": {
+          "containerToken": "cyber.bar",
+          "contentToken": "m3.onSurface",
+          "outlineToken": "cyber.bar_outline",
+          "outlineWidthDp": 1.0
+        }
+      },
+      "navigation": {
+        "normal": {
+          "containerToken": "m3.surface",
+          "contentToken": "m3.onSurface"
+        },
+        "selected": {
+          "containerToken": "m3.primaryContainer",
+          "contentToken": "m3.onPrimaryContainer"
+        }
+      },
+      "page": {
+        "normal": {
+          "containerToken": "cyber.bg",
+          "contentToken": "m3.onBackground"
+        }
+      },
+      "section": {
+        "normal": {
+          "containerToken": "m3.surfaceContainerLow",
+          "contentToken": "m3.onSurface"
+        }
+      },
+      "list_item": {
+        "normal": {
+          "containerToken": "m3.surfaceContainerLow",
+          "contentToken": "m3.onSurface"
+        },
+        "selected": {
+          "containerToken": "m3.primaryContainer",
+          "contentToken": "m3.onPrimaryContainer"
+        },
+        "disabled": {
+          "containerToken": "m3.surfaceVariant",
+          "contentToken": "m3.onSurfaceVariant"
+        }
+      },
+      "button": {
+        "normal": {
+          "containerToken": "m3.primary",
+          "contentToken": "m3.onPrimary"
+        },
+        "disabled": {
+          "containerToken": "m3.surfaceVariant",
+          "contentToken": "m3.onSurfaceVariant"
+        }
+      },
+      "icon_button": {
+        "normal": {
+          "containerToken": "m3.transparent",
+          "contentToken": "m3.onSurface"
+        },
+        "selected": {
+          "containerToken": "m3.transparent",
+          "contentToken": "cyber.cyan"
+        },
+        "focused": {
+          "containerToken": "m3.transparent",
+          "contentToken": "cyber.cyan"
+        }
+      },
+      "input": {
+        "normal": {
+          "containerToken": "cyber.input_bg",
+          "contentToken": "m3.onSurface"
+        },
+        "focused": {
+          "containerToken": "cyber.input_bg",
+          "contentToken": "m3.onSurface",
+          "outlineToken": "cyber.cyan",
+          "outlineWidthDp": 1.5
+        },
+        "error": {
+          "containerToken": "cyber.input_bg",
+          "contentToken": "m3.onSurface",
+          "outlineToken": "m3.error",
+          "outlineWidthDp": 1.5
+        }
+      },
+      "composer": {
+        "normal": {
+          "containerToken": "cyber.input_bg",
+          "contentToken": "m3.onSurface",
+          "outlineToken": "cyber.cyan",
+          "outlineWidthDp": 1.0,
+          "cornerRadiusDp": 14.0
+        }
+      },
+      "message_user": {
+        "normal": {
+          "containerToken": "m3.primaryContainer",
+          "contentToken": "m3.onPrimaryContainer",
+          "cornerRadiusDp": 14.0
+        }
+      },
+      "message_assistant": {
+        "normal": {
+          "containerToken": "m3.surfaceContainer",
+          "contentToken": "m3.onSurface",
+          "outlineToken": "cyber.magenta",
+          "outlineWidthDp": 1.0,
+          "cornerRadiusDp": 12.0
+        }
+      },
+      "dialog": {
+        "normal": {
+          "containerToken": "m3.surfaceContainerHigh",
+          "contentToken": "m3.onSurface",
+          "cornerRadiusDp": 14.0
+        }
+      },
+      "sheet": {
+        "normal": {
+          "containerToken": "m3.surfaceContainerLow",
+          "contentToken": "m3.onSurface"
+        }
+      },
+      "menu": {
+        "normal": {
+          "containerToken": "m3.surfaceContainerHigh",
+          "contentToken": "m3.onSurface",
+          "outlineToken": "m3.outlineVariant",
+          "outlineWidthDp": 1.0
+        }
+      },
+      "snackbar": {
+        "normal": {
+          "containerToken": "m3.inverseSurface",
+          "contentToken": "m3.inverseOnSurface"
+        }
+      },
+      "status": {
+        "normal": {
+          "containerToken": "m3.surfaceContainer",
+          "contentToken": "m3.onSurfaceVariant"
+        }
+      }
+    }
+  }
 }

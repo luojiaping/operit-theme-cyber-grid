@@ -11,14 +11,24 @@ command -v sha256sum >/dev/null
 manifest="operit-theme.json"
 test -f "$manifest"
 
+# V2 契约：完整 Material 投影 + 组件皮肤 + 日常 surface 覆盖是包的强制部分。
 jq -e '
-  .schemaVersion == 1 and
+  .schemaVersion == 2 and
   (.packageId | test("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$")) and
   (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+([-.+][0-9A-Za-z.-]+)?$")) and
-  (.capabilities.hostSurfaces | type == "array" and length > 0) and
-  (.capabilities.scenes | type == "array" and length > 0) and
-  (.scenes | type == "array" and length > 0)
+  (.presentation.material.colors | type == "object") and
+  (.presentation.componentSkins | type == "object" and length > 0) and
+  (.surfaces | type == "array" and length > 0) and
+  (.scenes | type == "array") and
+  (.scenes | map(.sceneId) | . == unique)
 ' "$manifest" >/dev/null
+
+# 场景型 surface 必须能找到对应场景定义。
+while IFS=$'\t' read -r surface scene; do
+  test -n "$surface"
+  jq -e --arg scene "$scene" 'any(.scenes[]; .sceneId == $scene)' "$manifest" >/dev/null ||
+    { echo "surface $surface references missing scene $scene" >&2; exit 1; }
+done < <(jq -r '(.surfaces // [])[] | select(.kind == "SCENE") | [.surfaceId, (.sceneId // "")] | @tsv' "$manifest")
 
 while IFS=$'\t' read -r path expected_sha expected_size; do
   test -n "$path"
