@@ -23,6 +23,26 @@ jobs:
         shell: bash
         run: ./scripts/package.sh
 
+      - name: Verify default basis release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          basis_package_id="$(jq -r '.basis.packageId' operit-theme.json)"
+          basis_version="$(jq -r '.basis.version' operit-theme.json)"
+          basis_archive_sha="$(jq -r '.basis.archiveSha256' operit-theme.json)"
+          test "$basis_package_id" = operit.default
+          basis_archive="operit-default-${basis_version}.otheme"
+          tmpdir="$(mktemp -d)"
+          trap 'rm -rf "$tmpdir"' EXIT
+          gh release download "v${basis_version}" \
+            --repo luojiaping/operit-theme-default \
+            --pattern "$basis_archive" \
+            --dir "$tmpdir"
+          actual_sha="$(sha256sum "$tmpdir/$basis_archive" | cut -d ' ' -f 1)"
+          test "$actual_sha" = "$basis_archive_sha"
+
       - name: Publish release assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -32,6 +52,7 @@ jobs:
           tag="${GITHUB_REF_NAME}"
           package_id="$(jq -r '.packageId' operit-theme.json)"
           version="$(jq -r '.version' operit-theme.json)"
+          test "$tag" = "v${version}"
           basis_package_id="$(jq -r '.basis.packageId' operit-theme.json)"
           basis_version="$(jq -r '.basis.version' operit-theme.json)"
           basis_archive_sha="$(jq -r '.basis.archiveSha256' operit-theme.json)"

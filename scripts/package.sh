@@ -11,14 +11,16 @@ command -v sha256sum >/dev/null
 manifest="operit-theme.json"
 test -f "$manifest"
 
-# V2 契约：完整 Material 投影 + 组件皮肤 + 日常 surface 覆盖是包的强制部分。
-# Input 与 status 在生产路径使用 error skin，任何直接覆盖它们的包必须声明所需状态。
+# V3 契约：完整 Material 投影、组件皮肤、日常 surface 与可调参数都是包的强制部分。
 jq -e '
-  def valid_stroke:
-    type == "object" and
-    (.token | type == "string" and length > 0) and
-    (.widthDp | type == "number" and . >= 0.25 and . <= 16);
-  def valid_optional_stroke: . == null or valid_stroke;
+   def no_unknown_keys($allowed):
+     type == "object" and ((keys - $allowed) | length == 0);
+   def valid_stroke:
+     type == "object" and
+     no_unknown_keys(["token", "widthDp"]) and
+     (.token | type == "string" and length > 0) and
+     (.widthDp | type == "number" and . >= 0.25 and . <= 16);
+   def valid_optional_stroke: . == null or valid_stroke;
   def required_surface_ids:
     ["app.shell", "app.navigation", "chat.main", "chat.floating",
      "chat.permission_overlay", "browser.shell", "web_chat.main",
@@ -44,12 +46,23 @@ jq -e '
     else
       "TEMPLATE"
     end;
-  def valid_surface:
+   def valid_surface:
+    type == "object" and
+    no_unknown_keys(["surfaceId", "kind", "sceneId"]) and
     (.surfaceId | type == "string") and
     (.surfaceId as $surface | required_surface_ids | index($surface) != null) and
-    (.surfaceId as $surface | .kind == expected_surface_kind($surface)) and
-    (if .kind == "SCENE" then .sceneId == .surfaceId else .sceneId == null end);
-  def valid_frame:
+     (.surfaceId as $surface | .kind == expected_surface_kind($surface)) and
+     (if .kind == "SCENE" then .sceneId == .surfaceId else .sceneId == null end);
+   def valid_semver:
+     type == "string" and test("^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?(\\+[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?$");
+   def valid_basis:
+     . == null or
+     (type == "object" and
+      no_unknown_keys(["packageId", "version", "archiveSha256"]) and
+      (.packageId | type == "string" and test("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$")) and
+      (.version | valid_semver) and
+      (.archiveSha256 | type == "string" and test("^[0-9a-f]{64}$")));
+   def valid_frame:
     type == "object" and
     (.type | type == "string") and
     (if .type == "none" then
@@ -78,40 +91,109 @@ jq -e '
        (.segmentLengthDp | type == "number" and . >= 4 and . <= 160) and
        (.border | valid_stroke) and
        (.accent | valid_stroke)
-     else
-       false
-     end);
-   .schemaVersion == 2 and
-  (.packageId | test("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$")) and
-  (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+([-.+][0-9A-Za-z.-]+)?$")) and
-   (.presentation.material.colors | type == "object") and
-   (.presentation.componentSkins | type == "object" and length > 0) and
-   (.presentation.componentSkins
+      else
+        false
+      end);
+   def valid_localized_text:
+     type == "object" and
+     no_unknown_keys(["values"]) and
+     (.values | type == "object" and has("*") and all(.[]; type == "string" and length > 0));
+   def valid_member_id:
+     type == "string" and test("^[a-z][a-z0-9_]*$");
+   def valid_token_id:
+     type == "string" and test("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)*$");
+   def valid_color_effect:
+     type == "object" and
+     (if .type == "accent_palette" then
+        no_unknown_keys(["type"])
+      elif .type == "token_color" then
+        no_unknown_keys(["type", "tokenIds"]) and
+        (.tokenIds | type == "array" and length > 0 and
+          all(valid_token_id) and length == (unique | length))
+      else false end);
+   def valid_color_parameter:
+     (.defaultValue | type == "object" and no_unknown_keys(["type", "argb"]) and .type == "color" and
+       (.argb | type == "number" and . >= 0 and . <= 4294967295)) and
+     (.control | type == "object" and no_unknown_keys(["type", "presetArgb", "allowCustom"]) and .type == "color_palette") and
+     (.control.presetArgb | type == "array" and
+       all(type == "number" and . >= 4278190080 and . <= 4294967295) and
+       length == (unique | length)) and
+     (.control.allowCustom | type == "boolean") and
+     ((.control.presetArgb | length) > 0 or .control.allowCustom) and
+     all(.effects[]; valid_color_effect) and
+     (.defaultValue.argb >= 4278190080);
+   def valid_image_parameter:
+     (.defaultValue | type == "object" and no_unknown_keys(["type"]) and .type == "unset") and
+     (.control | type == "object" and no_unknown_keys(["type", "mimeTypes"]) and .type == "image_picker") and
+     (.control.mimeTypes | type == "array" and length > 0 and
+       all(IN("image/jpeg", "image/png", "image/webp")) and
+       length == (unique | length)) and
+     all(.effects[];
+       type == "object" and .type == "stage_image" and
+       no_unknown_keys(["type", "surfaceIds", "fit", "opacity"]) and
+       (.surfaceIds | type == "array" and length > 0 and
+         all(. == "app.shell" or . == "chat.main") and
+         length == (unique | length)) and
+       (.fit | IN("FILL", "FIT", "CROP")) and
+       (.opacity | type == "number" and . >= 0 and . <= 1));
+   def valid_parameter:
+     type == "object" and
+     no_unknown_keys(["id", "type", "defaultValue", "label", "description", "control", "effects"]) and
+     (.id | valid_member_id) and
+     (.type | type == "string" and IN("COLOR", "IMAGE_URI")) and
+     (.label | valid_localized_text) and
+     (.description == null or (.description | valid_localized_text)) and
+     (.control | type == "object" and (.type | type == "string")) and
+     (.effects | type == "array" and length > 0) and
+     (if .type == "COLOR" then
+        valid_color_parameter
+      else valid_image_parameter
+      end);
+   type == "object" and
+   no_unknown_keys(["schemaVersion", "packageId", "version", "displayName", "author", "description", "attribution", "basis", "variants", "parameters", "assets", "tokens", "scenes", "surfaces", "presentation"]) and
+   .schemaVersion == 3 and
+   (.packageId | test("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$")) and
+   (.version | valid_semver) and
+   (.displayName | valid_localized_text) and
+   (.author == null or (.author | valid_localized_text)) and
+   (.description == null or (.description | valid_localized_text)) and
+   (.basis | valid_basis) and
+   (.presentation | type == "object") and
+   ((.presentation.material == null) or (.presentation.material.colors | type == "object")) and
+   ((.presentation.componentSkins // {}) | type == "object") and
+   ((.presentation.componentSkins // {})
       | to_entries
       | all(
-          .value
-          | [.normal, .disabled, .selected, .focused, .error]
-          | map(select(. != null))
-          | all(has("frame") and (.frame | valid_frame))
-        )) and
-    (.surfaces | type == "array" and length > 0 and all(valid_surface)) and
-    (.surfaces | map(.surfaceId)) as $surface_ids |
+           .value
+           | (.normal != null and .normal.frame != null and (.normal.frame | valid_frame)) and
+             ([.disabled, .selected, .focused, .error]
+              | map(select(. != null))
+              | all(has("frame") and (.frame | valid_frame)))
+         )) and
+    ((.surfaces // []) | type == "array" and all(valid_surface)) and
+    ((.surfaces // []) | map(.surfaceId)) as $surface_ids |
     ((($surface_ids - required_surface_ids) | length) == 0) and
-    (.presentation.componentSkins | keys) as $component_ids |
+    ((.presentation.componentSkins // {}) | keys) as $component_ids |
     ((($component_ids - required_component_ids) | length) == 0) and
-    ((.presentation.componentSkins | has("input") | not) or
+    (((.presentation.componentSkins // {}) | has("input") | not) or
      (.presentation.componentSkins.input.focused != null and
       .presentation.componentSkins.input.error != null)) and
-    ((.presentation.componentSkins | has("status") | not) or
+    (((.presentation.componentSkins // {}) | has("status") | not) or
      .presentation.componentSkins.status.error != null) and
+    ((.parameters // []) | type == "array" and
+      (map(.id) | length == (unique | length)) and
+      all(valid_parameter)) and
     (if .basis == null then
+       (.presentation.material.colors | type == "object") and
+       ((.presentation.componentSkins // {}) | length > 0) and
+       (($surface_ids | length) > 0) and
        (($surface_ids | sort) == (required_surface_ids | sort)) and
        (($component_ids | sort) == (required_component_ids | sort))
      else
        true
      end) and
-   (.scenes | type == "array") and
-  (.scenes | map(.sceneId) | . == unique)
+    ((.scenes // []) | type == "array") and
+   ((.scenes // []) | map(.sceneId) | . == unique)
 ' "$manifest" >/dev/null
 
 # 场景型 surface 必须能找到对应场景定义。

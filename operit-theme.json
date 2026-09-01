@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "packageId": "operit.cyber_grid",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "displayName": {
     "values": {
       "*": "赛博网格",
@@ -29,8 +29,8 @@
   },
   "basis": {
     "packageId": "operit.default",
-    "version": "2.1.0",
-    "archiveSha256": "686bc48d09752de21a25a8abf6bf35246371816849da4ef33534f96bc1c9c964"
+    "version": "2.2.0",
+    "archiveSha256": "dba4169c8e1636c5f2d85749f7770b8657d99217764563aac0302137e37ef4fd"
   },
   "assets": [
     {

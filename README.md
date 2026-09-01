@@ -1,6 +1,6 @@
 # Operit Cyber Grid Theme
 
-`operit.cyber_grid` is a V2 declarative cyberpunk theme for Operit. It is distributed only as a GitHub Release `.otheme` artifact and is never bundled into the application.
+`operit.cyber_grid` is a schema 3 declarative cyberpunk theme for Operit. It is distributed only as a GitHub Release `.otheme` artifact and is never bundled into the application.
 
 ## Install
 
@@ -12,12 +12,13 @@ The application validates the archive, manifest, surface coverage, scene contrac
 
 ## Package
 
-- Schema: V2 with an explicit basis on `operit.default` at the exact release coordinate; everything not overridden here is inherited from the base theme.
+- Schema: 3 with an explicit basis on `operit.default` at the exact release coordinate; everything not overridden here is inherited from the base theme.
 - `app.shell` and `chat.main` are full scenes: Hubble nebula backdrop, a neon top bar, and measured host slots without fixed percentage positioning.
 - The page-level outer shell remains a nine-slice asset. Component skins declare their own `round_rect`, `cut_corners`, `hud_notched`, `corner_brackets`, or `segmented_rail` frame geometry.
 - Chat uses HUD notches for the composer, segmented rails for the role bar, open brackets for AI messages, and cut corners for user messages.
 - The status skin declares normal and error states so operation results retain their semantic color and cut-corner frame.
 - Surface overrides follow the same host contract as the default package: `app.shell` and `chat.main` keep their matching scene IDs, while inherited template and host-shell surfaces remain host-owned.
+- Default-package parameter effects do not run while Cyber Grid is active. Cyber Grid keeps its authored cyan/magenta composition and will declare its own user options when that visual contract is ready.
 
 ## Assets and Attribution
 
