@@ -12,7 +12,7 @@ manifest="operit-theme.json"
 test -f "$manifest"
 
 # V2 契约：完整 Material 投影 + 组件皮肤 + 日常 surface 覆盖是包的强制部分。
-# Input 在生产路径使用 focused/error skin，任何直接覆盖 input 的包必须声明两者。
+# Input 与 status 在生产路径使用 error skin，任何直接覆盖它们的包必须声明所需状态。
 jq -e '
   def valid_stroke:
     type == "object" and
@@ -102,6 +102,8 @@ jq -e '
     ((.presentation.componentSkins | has("input") | not) or
      (.presentation.componentSkins.input.focused != null and
       .presentation.componentSkins.input.error != null)) and
+    ((.presentation.componentSkins | has("status") | not) or
+     .presentation.componentSkins.status.error != null) and
     (if .basis == null then
        (($surface_ids | sort) == (required_surface_ids | sort)) and
        (($component_ids | sort) == (required_component_ids | sort))
@@ -163,5 +165,8 @@ done
   zip -X -q "$repo_root/$archive" "${entries[@]}"
   printf '%s\n' 'Operit Theme Package' | zip -z -q "$repo_root/$archive"
 )
-sha256sum "$archive" > "$archive.sha256"
+(
+  cd dist
+  sha256sum "$archive_name" > "$archive_name.sha256"
+)
 printf '%s\n' "$archive"

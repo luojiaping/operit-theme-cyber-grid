@@ -30,7 +30,16 @@ jobs:
         run: |
           set -euo pipefail
           tag="${GITHUB_REF_NAME}"
-          gh release create "$tag" dist/*.otheme dist/*.otheme.sha256 \
+          package_id="$(jq -r '.packageId' operit-theme.json)"
+          version="$(jq -r '.version' operit-theme.json)"
+          basis_package_id="$(jq -r '.basis.packageId' operit-theme.json)"
+          basis_version="$(jq -r '.basis.version' operit-theme.json)"
+          basis_archive_sha="$(jq -r '.basis.archiveSha256' operit-theme.json)"
+          archive_prefix="$(printf '%s' "$package_id" | tr '._' '-')"
+          archive="dist/${archive_prefix}-${version}.otheme"
+          read -r archive_sha _ < "$archive.sha256"
+          notes="$(printf 'Theme package: %s@%s\n\nBasis: %s@%s\nBasis archive SHA-256: %s\n\nArchive SHA-256: %s\n' "$package_id" "$version" "$basis_package_id" "$basis_version" "$basis_archive_sha" "$archive_sha")"
+          gh release create "$tag" "$archive" "$archive.sha256" \
             --repo "$GITHUB_REPOSITORY" \
             --title "$tag" \
-            --generate-notes
+            --notes "$notes"
