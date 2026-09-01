@@ -12,6 +12,7 @@ manifest="operit-theme.json"
 test -f "$manifest"
 
 # V2 契约：完整 Material 投影 + 组件皮肤 + 日常 surface 覆盖是包的强制部分。
+# Input 在生产路径使用 focused/error skin，任何直接覆盖 input 的包必须声明两者。
 jq -e '
   def valid_stroke:
     type == "object" and
@@ -98,6 +99,9 @@ jq -e '
     ((($surface_ids - required_surface_ids) | length) == 0) and
     (.presentation.componentSkins | keys) as $component_ids |
     ((($component_ids - required_component_ids) | length) == 0) and
+    ((.presentation.componentSkins | has("input") | not) or
+     (.presentation.componentSkins.input.focused != null and
+      .presentation.componentSkins.input.error != null)) and
     (if .basis == null then
        (($surface_ids | sort) == (required_surface_ids | sort)) and
        (($component_ids | sort) == (required_component_ids | sort))
