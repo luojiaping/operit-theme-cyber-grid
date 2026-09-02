@@ -12,6 +12,11 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-24.04
+    env:
+      REQUIRED_DEFAULT_PACKAGE_ID: operit.default
+      REQUIRED_DEFAULT_VERSION: 3.0.0
+      REQUIRED_DEFAULT_ARCHIVE: operit-default-3.0.0.otheme
+      REQUIRED_DEFAULT_ARCHIVE_SHA256: 5a96abf521ec22a8c486ccb5b4d7f561a4bed4f6f90dfe742647024eb79db91f
     steps:
       - name: Checkout source
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
@@ -32,8 +37,10 @@ jobs:
           basis_package_id="$(jq -r '.basis.packageId' operit-theme.json)"
           basis_version="$(jq -r '.basis.version' operit-theme.json)"
           basis_archive_sha="$(jq -r '.basis.archiveSha256' operit-theme.json)"
-          test "$basis_package_id" = operit.default
-          basis_archive="operit-default-${basis_version}.otheme"
+          test "$basis_package_id" = "$REQUIRED_DEFAULT_PACKAGE_ID"
+          test "$basis_version" = "$REQUIRED_DEFAULT_VERSION"
+          test "$basis_archive_sha" = "$REQUIRED_DEFAULT_ARCHIVE_SHA256"
+          basis_archive="$REQUIRED_DEFAULT_ARCHIVE"
           tmpdir="$(mktemp -d)"
           trap 'rm -rf "$tmpdir"' EXIT
           gh release download "v${basis_version}" \
@@ -56,6 +63,9 @@ jobs:
           basis_package_id="$(jq -r '.basis.packageId' operit-theme.json)"
           basis_version="$(jq -r '.basis.version' operit-theme.json)"
           basis_archive_sha="$(jq -r '.basis.archiveSha256' operit-theme.json)"
+          test "$basis_package_id" = "$REQUIRED_DEFAULT_PACKAGE_ID"
+          test "$basis_version" = "$REQUIRED_DEFAULT_VERSION"
+          test "$basis_archive_sha" = "$REQUIRED_DEFAULT_ARCHIVE_SHA256"
           archive_prefix="$(printf '%s' "$package_id" | tr '._' '-')"
           archive="dist/${archive_prefix}-${version}.otheme"
           read -r archive_sha _ < "$archive.sha256"

@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "packageId": "operit.cyber_grid",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "displayName": {
     "values": {
       "*": "赛博网格",
@@ -29,9 +29,536 @@
   },
   "basis": {
     "packageId": "operit.default",
-    "version": "2.2.0",
-    "archiveSha256": "dba4169c8e1636c5f2d85749f7770b8657d99217764563aac0302137e37ef4fd"
+    "version": "3.0.0",
+    "archiveSha256": "5a96abf521ec22a8c486ccb5b4d7f561a4bed4f6f90dfe742647024eb79db91f"
   },
+  "parameters": [
+    {
+      "id": "cyber_cyan_color",
+      "type": "COLOR",
+      "defaultValue": {
+        "type": "color",
+        "argb": 4278237396
+      },
+      "label": {
+        "values": {
+          "*": "青色霓虹",
+          "en": "Cyan neon"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整赛博网格框架使用的青色信号",
+          "en": "Adjusts the cyan signal used by Cyber Grid frames"
+        }
+      },
+      "control": {
+        "type": "color_palette",
+        "presetArgb": [
+          4278237396,
+          4278248959
+        ],
+        "allowCustom": true
+      },
+      "effects": [
+        {
+          "type": "token_color",
+          "tokenIds": [
+            "cyber.cyan"
+          ]
+        }
+      ],
+      "visibility": "USER",
+      "section": "APPEARANCE",
+      "order": 0,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_magenta_color",
+      "type": "COLOR",
+      "defaultValue": {
+        "type": "color",
+        "argb": 4288430182
+      },
+      "label": {
+        "values": {
+          "*": "洋红信号",
+          "en": "Magenta signal"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整赛博网格框架使用的洋红信号",
+          "en": "Adjusts the magenta signal used by Cyber Grid frames"
+        }
+      },
+      "control": {
+        "type": "color_palette",
+        "presetArgb": [
+          4288430182,
+          4294921630
+        ],
+        "allowCustom": true
+      },
+      "effects": [
+        {
+          "type": "token_color",
+          "tokenIds": [
+            "cyber.magenta"
+          ]
+        }
+      ],
+      "visibility": "USER",
+      "section": "APPEARANCE",
+      "order": 1,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_background_image",
+      "type": "IMAGE_URI",
+      "label": {
+        "values": {
+          "*": "自定义背景图片",
+          "en": "Custom background image"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "显示在赛博应用与聊天场景底层",
+          "en": "Shown behind the Cyber Grid app and chat scenes"
+        }
+      },
+      "control": {
+        "type": "image_picker",
+        "mimeTypes": [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ]
+      },
+      "effects": [
+        {
+          "type": "stage_image",
+          "surfaceIds": [
+            "app.shell",
+            "chat.main"
+          ],
+          "fit": "CROP",
+          "opacity": 0.22
+        }
+      ],
+      "visibility": "USER",
+      "section": "APPEARANCE",
+      "order": 2,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_background_opacity",
+      "type": "FLOAT",
+      "defaultValue": {
+        "type": "float",
+        "value": 0.22
+      },
+      "label": {
+        "values": {
+          "*": "自定义背景不透明度",
+          "en": "Custom background opacity"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整自定义背景图片的显示强度",
+          "en": "Adjusts the visibility of the custom background image"
+        }
+      },
+      "control": {
+        "type": "slider",
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "step": 0.05
+      },
+      "effects": [
+        {
+          "type": "presentation",
+          "targets": [
+            "BACKGROUND_OPACITY"
+          ]
+        }
+      ],
+      "visibility": "USER",
+      "section": "APPEARANCE",
+      "order": 3,
+      "visibleWhen": [
+        {
+          "type": "resource_present",
+          "parameterId": "cyber_background_image"
+        }
+      ]
+    },
+    {
+      "id": "cyber_typography_scale",
+      "type": "FLOAT",
+      "defaultValue": {
+        "type": "float",
+        "value": 1.0
+      },
+      "label": {
+        "values": {
+          "*": "赛博字体缩放",
+          "en": "Cyber typography scale"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整赛博界面文字的整体比例",
+          "en": "Adjusts the overall scale of Cyber Grid text"
+        }
+      },
+      "control": {
+        "type": "slider",
+        "minimum": 0.85,
+        "maximum": 1.2,
+        "step": 0.05
+      },
+      "effects": [
+        {
+          "type": "typography_scale"
+        }
+      ],
+      "visibility": "USER",
+      "section": "APPEARANCE",
+      "order": 4,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_shape_scale",
+      "type": "FLOAT",
+      "defaultValue": {
+        "type": "float",
+        "value": 1.0
+      },
+      "label": {
+        "values": {
+          "*": "赛博形状缩放",
+          "en": "Cyber shape scale"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整赛博界面框架与圆角的整体比例",
+          "en": "Adjusts the overall scale of Cyber Grid shapes"
+        }
+      },
+      "control": {
+        "type": "author_value"
+      },
+      "effects": [
+        {
+          "type": "shape_scale"
+        }
+      ],
+      "visibility": "AUTHOR",
+      "order": 2,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_show_avatars",
+      "type": "BOOLEAN",
+      "defaultValue": {
+        "type": "boolean",
+        "value": true
+      },
+      "label": {
+        "values": {
+          "*": "显示头像",
+          "en": "Show avatars"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "在对话消息旁显示参与者头像",
+          "en": "Shows participant avatars beside conversation messages"
+        }
+      },
+      "control": {
+        "type": "toggle"
+      },
+      "effects": [
+        {
+          "type": "presentation",
+          "targets": [
+            "BUBBLE_SHOW_AVATAR"
+          ]
+        }
+      ],
+      "visibility": "USER",
+      "section": "CONVERSATION",
+      "order": 0,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_wide_bubbles",
+      "type": "BOOLEAN",
+      "defaultValue": {
+        "type": "boolean",
+        "value": false
+      },
+      "label": {
+        "values": {
+          "*": "加宽消息气泡",
+          "en": "Wide message bubbles"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "让消息气泡占用更多对话宽度",
+          "en": "Lets message bubbles use more conversation width"
+        }
+      },
+      "control": {
+        "type": "toggle"
+      },
+      "effects": [
+        {
+          "type": "presentation",
+          "targets": [
+            "BUBBLE_WIDE_LAYOUT"
+          ]
+        }
+      ],
+      "visibility": "USER",
+      "section": "CONVERSATION",
+      "order": 1,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_avatar_shape",
+      "type": "OPTION",
+      "defaultValue": {
+        "type": "option",
+        "value": "circle"
+      },
+      "label": {
+        "values": {
+          "*": "头像形状",
+          "en": "Avatar shape"
+        }
+      },
+      "control": {
+        "type": "choice",
+        "options": [
+          {
+            "id": "circle",
+            "label": {
+              "values": {
+                "*": "圆形",
+                "en": "Circle"
+              }
+            }
+          },
+          {
+            "id": "square",
+            "label": {
+              "values": {
+                "*": "方形",
+                "en": "Square"
+              }
+            }
+          },
+          {
+            "id": "rounded",
+            "label": {
+              "values": {
+                "*": "圆角方形",
+                "en": "Rounded"
+              }
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "presentation",
+          "targets": [
+            "AVATAR_SHAPE"
+          ]
+        }
+      ],
+      "visibility": "USER",
+      "section": "CONVERSATION",
+      "order": 2,
+      "visibleWhen": [
+        {
+          "type": "boolean_equals",
+          "parameterId": "cyber_show_avatars",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "cyber_composer_transparent",
+      "type": "BOOLEAN",
+      "defaultValue": {
+        "type": "boolean",
+        "value": false
+      },
+      "label": {
+        "values": {
+          "*": "透明输入区",
+          "en": "Transparent composer"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "移除赛博输入区的表面填充色",
+          "en": "Removes the Cyber Grid composer surface fill"
+        }
+      },
+      "control": {
+        "type": "author_value"
+      },
+      "effects": [
+        {
+          "type": "presentation",
+          "targets": [
+            "COMPOSER_TRANSPARENT"
+          ]
+        }
+      ],
+      "visibility": "AUTHOR",
+      "order": 3,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_composer_frame_scale",
+      "type": "FLOAT",
+      "defaultValue": {
+        "type": "float",
+        "value": 1.0
+      },
+      "label": {
+        "values": {
+          "*": "输入框边框缩放",
+          "en": "Composer frame scale"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整赛博输入区与文本输入框的边框尺寸",
+          "en": "Adjusts the Cyber Grid composer and text-input frame geometry"
+        }
+      },
+      "control": {
+        "type": "author_value"
+      },
+      "effects": [
+        {
+          "type": "component_frame_scale",
+          "componentIds": [
+            "composer",
+            "input"
+          ]
+        }
+      ],
+      "visibility": "AUTHOR",
+      "order": 4,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_app_chrome_frame_scale",
+      "type": "FLOAT",
+      "defaultValue": {
+        "type": "float",
+        "value": 1.0
+      },
+      "label": {
+        "values": {
+          "*": "应用栏边框缩放",
+          "en": "App chrome frame scale"
+        }
+      },
+      "description": {
+        "values": {
+          "*": "调整赛博应用栏与导航栏的边框尺寸",
+          "en": "Adjusts the Cyber Grid app-bar and navigation frame geometry"
+        }
+      },
+      "control": {
+        "type": "author_value"
+      },
+      "effects": [
+        {
+          "type": "component_frame_scale",
+          "componentIds": [
+            "app_bar",
+            "navigation"
+          ]
+        }
+      ],
+      "visibility": "AUTHOR",
+      "order": 5,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_bubble_user_content_insets",
+      "type": "INSETS",
+      "defaultValue": {
+        "type": "insets",
+        "startDp": 0.0,
+        "topDp": 0.0,
+        "endDp": 0.0,
+        "bottomDp": 0.0
+      },
+      "label": {
+        "values": {
+          "*": "用户气泡内容边距",
+          "en": "User bubble content insets"
+        }
+      },
+      "control": {
+        "type": "author_value"
+      },
+      "effects": [
+        {
+          "type": "component_content_insets",
+          "componentIds": [
+            "message_user"
+          ]
+        }
+      ],
+      "visibility": "AUTHOR",
+      "order": 0,
+      "visibleWhen": []
+    },
+    {
+      "id": "cyber_chrome_status_bar_transparent",
+      "type": "BOOLEAN",
+      "defaultValue": {
+        "type": "boolean",
+        "value": false
+      },
+      "label": {
+        "values": {
+          "*": "状态栏透明",
+          "en": "Status bar transparency"
+        }
+      },
+      "control": {
+        "type": "author_value"
+      },
+      "effects": [
+        {
+          "type": "presentation",
+          "targets": [
+            "CHROME_STATUS_BAR_TRANSPARENT"
+          ]
+        }
+      ],
+      "visibility": "AUTHOR",
+      "order": 1,
+      "visibleWhen": []
+    }
+  ],
   "assets": [
     {
       "key": "cyber_nebula",
@@ -765,6 +1292,69 @@
             "accent": { "token": "m3.error", "widthDp": 1.0 }
           }
         }
+      }
+    },
+    "behavior": {
+      "background": {
+        "enabled": false,
+        "mediaType": "NONE",
+        "opacity": 0.22,
+        "blurEnabled": false,
+        "blurRadiusDp": 0.0,
+        "videoMuted": true,
+        "videoLoop": true
+      },
+      "typography": {
+        "useCustomFont": false,
+        "family": "DEFAULT",
+        "scale": 1.0
+      },
+      "conversation": {
+        "cursorUserBubbleFollowTheme": true,
+        "cursorUserBubbleLiquidGlass": false,
+        "cursorUserBubbleWaterGlass": false,
+        "cursorUserBubbleColorArgb": null,
+        "bubbleShowAvatar": true,
+        "bubbleWideLayout": false,
+        "bubbleUserLiquidGlass": false,
+        "bubbleUserWaterGlass": false,
+        "bubbleAssistantLiquidGlass": false,
+        "bubbleAssistantWaterGlass": false,
+        "bubbleImageRenderMode": "TILED_NINE_SLICE",
+        "bubbleUserRoundedCorners": true,
+        "bubbleAssistantRoundedCorners": true,
+        "bubbleUserColorArgb": null,
+        "bubbleAssistantColorArgb": null,
+        "bubbleUserTextColorArgb": null,
+        "bubbleAssistantTextColorArgb": null,
+        "bubbleUserUseCustomFont": false,
+        "bubbleUserFontFamily": "DEFAULT",
+        "bubbleAssistantUseCustomFont": false,
+        "bubbleAssistantFontFamily": "DEFAULT",
+        "avatarShape": "CIRCLE",
+        "avatarCornerRadiusDp": 12.0
+      },
+      "composer": {
+        "transparent": false,
+        "floating": false,
+        "liquidGlass": false,
+        "waterGlass": false
+      },
+      "chrome": {
+        "statusBarHidden": false,
+        "statusBarTransparent": false,
+        "statusBarColorArgb": null,
+        "toolbarTransparent": false,
+        "toolbarColorArgb": null,
+        "navigationWaterGlass": false,
+        "navigationButtonLiquidGlass": false,
+        "navigationBackgroundColorArgb": null,
+        "navigationAccentColorArgb": null,
+        "chatHeaderTransparent": false,
+        "chatHeaderOverlayMode": "NONE",
+        "appBarContentColorMode": "AUTO",
+        "chatHeaderHistoryIconColorArgb": null,
+        "chatHeaderPipIconColorArgb": null
       }
     }
   }
